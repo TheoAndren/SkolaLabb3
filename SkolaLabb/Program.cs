@@ -63,9 +63,17 @@ namespace SkolaLabb
                             Console.Clear();
                             //Hämta ut alla elever i en viss klass
                             //Användaren ska först få se en lista med alla klasser som finns,
-                            //sen får användaren välja en av klasserna och då skrivs alla elever i den klassen ut.
+                            //sen får användaren välja en av klasserna och då skrivs alla elever i den klassen ut
 
-                            break;
+                            foreach (var k in klasslista)
+                            {
+                                for (int j = 0; j < klass.Count; j++)
+                                {
+                                    Console.WriteLine($"{j + 1}. {klass[j]}");
+                                }
+                            }
+                            
+                                break;
                         }
                     case "3":
                         {
@@ -73,6 +81,16 @@ namespace SkolaLabb
                             //Lägga till ny personal
                             //Användaren får möjlighet att mata in uppgifter om en ny anställd och dessa sparas ner i databasen
 
+                            Console.WriteLine("Förnamn?");
+                            string förnamn = Console.ReadLine();
+                            Console.WriteLine("Efternamn?");
+                            string efternamn = Console.ReadLine();
+                            Console.WriteLine("PersonNr?");
+                            string personnr = Console.ReadLine();
+                            Console.WriteLine("AnställningsNr?");
+                            string anställningsnr = Console.ReadLine();
+                            Console.WriteLine("BefattningsId?");
+                            string befattningsid = Console.ReadLine();
 
                             break;
 
