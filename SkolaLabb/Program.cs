@@ -282,16 +282,30 @@ namespace SkolaLabb
 
                             Console.WriteLine("Förnamn?");
                             string förnamn = Console.ReadLine();
+                            Console.Clear();
                             Console.WriteLine("Efternamn?");
                             string efternamn = Console.ReadLine();
+                            Console.Clear();
                             Console.WriteLine("PersonNr?");
                             string personnr = Console.ReadLine();
-                            Console.WriteLine("AnställningsNr?");
-                            string anställningsnr = Console.ReadLine();
-                            Console.WriteLine("BefattningsId?");
-                            string befattningsid = Console.ReadLine();
+                            Console.Clear();
+                            
+                            //Tror inte detta behövs då alla slags id räknar av sig själva?
+                            //Console.WriteLine("AnställningsNr?");
+                            //int anställningsnr = Convert.ToInt32(Console.ReadLine());
+                            //Console.Clear();
+                            //Console.WriteLine("BefattningsId?");
+                            //int befattningsid = Convert.ToInt32(Console.ReadLine());
+                            //Console.Clear();
 
-                            break;
+                            var personal = new Personal { Fnamn = förnamn, Lnamn = efternamn, PrsNr = personnr,};
+                            context.Add<Personal>(personal);
+                            context.SaveChanges();
+                            Console.WriteLine("Ny personal sparad");
+
+
+
+                                break;
 
                         }
                     case "4":
