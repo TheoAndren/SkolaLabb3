@@ -12,11 +12,7 @@ namespace SkolaLabb
         static void Main(string[] args)
         {
             using SkolaDbContext context = new SkolaDbContext();
-            //var test = from e in context.Elev select e;
-            //foreach (Elev item in test)
-            //{
-            //    Console.WriteLine("Fnamn" + item.Fnamn);
-            //}
+            
             bool logout = false;
             while (logout == false)
             {
@@ -47,14 +43,13 @@ namespace SkolaLabb
                                 throw new Exception("Du mata in nått könstigt");
                             }
 
-                            List<Elev> Elever = null;
+                            
                             
                             if (ordning == "stigande")
                             {
                                 if (svar == "förnamn")
                                 {
                                     Console.Clear();
-                                    Console.WriteLine("Här sorterar vi på förnamn");
                                     var a = from s in context.Elev orderby s.Fnamn ascending select s;
                                     foreach (var item in a)
                                     {
@@ -65,7 +60,6 @@ namespace SkolaLabb
                                 else if (svar == "efternamn")
                                 {
                                     Console.Clear();
-                                    Console.WriteLine("Här sorterar vi på efternamn");
                                     var b = from s in context.Elev orderby s.Lnamn ascending select s;
                                     foreach (var item in b)
                                     {
@@ -79,7 +73,6 @@ namespace SkolaLabb
                                 if (svar == "förnamn")
                                 {
                                     Console.Clear();
-                                    Console.WriteLine("Här sorterar vi på förnamn");
                                     var c = from s in context.Elev orderby s.Fnamn descending select s;
                                     foreach (var item in c)
                                     {
@@ -91,7 +84,6 @@ namespace SkolaLabb
                                 else if (svar == "efternamn")
                                 {
                                     Console.Clear();
-                                    Console.WriteLine("Här sorterar vi på efternamn");
                                     var d = from s in context.Elev orderby s.Lnamn descending select s;
                                     foreach (var item in d)
                                     {
@@ -101,29 +93,12 @@ namespace SkolaLabb
                                 }
                             }
 
-
-                            //Elever.ForEach(delegate (Elev elev)
-                            //{
-                            //    Console.WriteLine(elev.Fnamn + " " + elev.Lnamn);
-                            //});
-
-
-
-
-                            //Hämta ut alla elever
-                            //Användaren får välja om de vill se eleverna sorterade på -
-                            //för - eller efternamn och om det ska vara stigande eller fallande sortering.
-
                             break;
                         }
                     case "2":
                         {
                             Console.Clear();
-                            //Hämta ut alla elever i en viss klass
-                            //Användaren ska först få se en lista med alla klasser som finns,
-                            //sen får användaren välja en av klasserna och då skrivs alla elever i den klassen ut
-
-                            List<Klass> klasser = null;
+                           
 
                             var e = from k in context.Klass orderby k.KlassId ascending select k;
                             foreach (var item in e)
@@ -277,8 +252,6 @@ namespace SkolaLabb
                     case "3":
                         {
                             Console.Clear();
-                            //Lägga till ny personal
-                            //Användaren får möjlighet att mata in uppgifter om en ny anställd och dessa sparas ner i databasen
 
                             Console.WriteLine("Förnamn?");
                             string förnamn = Console.ReadLine();
@@ -290,17 +263,16 @@ namespace SkolaLabb
                             string personnr = Console.ReadLine();
                             Console.Clear();
                             
-                            //Tror inte detta behövs då alla slags id räknar av sig själva?
-                            //Console.WriteLine("AnställningsNr?");
-                            //int anställningsnr = Convert.ToInt32(Console.ReadLine());
-                            //Console.Clear();
-                            //Console.WriteLine("BefattningsId?");
-                            //int befattningsid = Convert.ToInt32(Console.ReadLine());
-                            //Console.Clear();
+                            
+                            Console.WriteLine("BefattningsId?");
+                            int befattningsid = Convert.ToInt32(Console.ReadLine());
+                            Console.Clear();
 
-                            var personal = new Personal { Fnamn = förnamn, Lnamn = efternamn, PrsNr = personnr,};
+                            var personal = new Personal { Fnamn = förnamn, Lnamn = efternamn, PrsNr = personnr, BefattningsId = befattningsid};
                             context.Add<Personal>(personal);
                             context.SaveChanges();
+
+                            Console.Clear();
                             Console.WriteLine("Ny personal sparad");
 
 
