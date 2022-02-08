@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SkolaLabb.Models;
 
@@ -25,7 +26,7 @@ namespace SkolaLabb
                             Console.WriteLine("Vill du se alla elever sorterade på förnamn eller efternamn");
                             Console.WriteLine("Mata in förnamn / efternamn");
                             string svar = Console.ReadLine();
-                            // Guard clause
+                            
                             if (svar != "förnamn" && svar != "efternamn")
                             {
                                 throw new Exception("Du mata in nått könstigt");
@@ -46,12 +47,12 @@ namespace SkolaLabb
                                 if (svar == "förnamn")
                                 {
                                     Console.WriteLine("Här sorterar vi på förnamn");
-                                    elever = db.Elever.FindAll().OrderBy(elev => elev.Fnamn);
+                                    var student = from s in db.Elever orderby s.Fnamn ascending select s;
                                 }
                                 else if (svar == "efternamn")
                                 {
                                     Console.WriteLine("Här sorterar vi på efternamn");
-                                    elever = db.Elever.FindAll().OrderBy(elev => elev.Lnamn);
+                                    var b = from s in db.Elever orderby s.Lnamn ascending select s;
                                 }
                             }
                             else
@@ -59,12 +60,12 @@ namespace SkolaLabb
                                 if (svar == "förnamn")
                                 {
                                     Console.WriteLine("Här sorterar vi på förnamn");
-                                    elever = db.Elever.FindAll().OrderByDescending(elev => elev.Fnamn);
+                                    var c = from s in db.Elever orderby s.Fnamn descending select s;
                                 }
                                 else if (svar == "efternamn")
                                 {
                                     Console.WriteLine("Här sorterar vi på efternamn");
-                                    elever = db.Elever.FindAll().OrderByDescending(elev => elev.Lnamn);
+                                    var d = from s in db.Elever orderby s.Lnamn descending select s;
                                 }
                             }
 
