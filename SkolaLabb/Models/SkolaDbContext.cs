@@ -23,6 +23,7 @@ namespace SkolaLabb.Models
         public virtual DbSet<Personal> Personal { get; set; }
 
         public virtual List<Elev> Elever { get; set; }
+        public virtual List<Klass> Klasser { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

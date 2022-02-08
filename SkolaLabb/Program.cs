@@ -12,50 +12,75 @@ namespace SkolaLabb
             bool logout = false;
             while (logout == false)
             {
-                Console.WriteLine("1. Hämta ut alla elever\n2.Hämta elever klassvis\n3.Lägg till ny personal\n4.Avsluta");
+                Console.WriteLine("Mata in");
+                Console.WriteLine("1: Hämta ut alla elever");
+                Console.WriteLine("2: Hämta ut alla elever i en viss klass");
+                Console.WriteLine("3: Lägga till ny personal");
                 string menuoption = Console.ReadLine();
                 switch (menuoption)
                 {
                     case "1":
                         {
                             Console.Clear();
+                            Console.WriteLine("Vill du se alla elever sorterade på förnamn eller efternamn");
+                            Console.WriteLine("Mata in förnamn / efternamn");
+                            string svar = Console.ReadLine();
+                            // Guard clause
+                            if (svar != "förnamn" && svar != "efternamn")
+                            {
+                                throw new Exception("Du mata in nått könstigt");
+                            }
+
+                            Console.WriteLine("Vill du ha stigande eller fallande ordning");
+                            Console.WriteLine("Mata in stigande / fallande");
+                            string ordning = Console.ReadLine();
+                            if (ordning != "stigande" && ordning != "fallanse")
+                            {
+                                throw new Exception("Du mata in nått könstigt");
+                            }
+
+                            List<Elev> elever = null;
+                            var db = new SkolaDbContext();
+                            if (ordning == "stigande")
+                            {
+                                if (svar == "förnamn")
+                                {
+                                    Console.WriteLine("Här sorterar vi på förnamn");
+                                    elever = db.Elever.FindAll().OrderBy(elev => elev.Fnamn);
+                                }
+                                else if (svar == "efternamn")
+                                {
+                                    Console.WriteLine("Här sorterar vi på efternamn");
+                                    elever = db.Elever.FindAll().OrderBy(elev => elev.Lnamn);
+                                }
+                            }
+                            else
+                            {
+                                if (svar == "förnamn")
+                                {
+                                    Console.WriteLine("Här sorterar vi på förnamn");
+                                    elever = db.Elever.FindAll().OrderByDescending(elev => elev.Fnamn);
+                                }
+                                else if (svar == "efternamn")
+                                {
+                                    Console.WriteLine("Här sorterar vi på efternamn");
+                                    elever = db.Elever.FindAll().OrderByDescending(elev => elev.Lnamn);
+                                }
+                            }
+
+
+                            elever.ForEach(delegate (Elev elev)
+                            {
+                                Console.WriteLine(elev.Fnamn + " " + elev.Lnamn);
+                            });
+
+
+
+
                             //Hämta ut alla elever
                             //Användaren får välja om de vill se eleverna sorterade på -
                             //för - eller efternamn och om det ska vara stigande eller fallande sortering.
 
-                            Console.WriteLine("1.Sort by first name or last name? (First/Last)");
-                            string sort1 = Console.ReadLine();
-
-                            if (sort1.ToUpper() == "First")
-                            {
-                                Console.WriteLine("1.Sort by ascending or descending? (asc/des)");
-                                string sort2 = Console.ReadLine();
-
-                                if (sort2.ToUpper() == "asc")
-                                {
-                                    Console.WriteLine("stigande förnamn");
-                                }
-                                else if (sort2.ToUpper() == "des")
-                                {
-                                    Console.WriteLine("fallande förnamn");
-                                }
-                            }
-                            else if (sort1.ToUpper() == "Last")
-                            {
-                                Console.WriteLine("1.Sort by ascending or descending? (asc/des)");
-                                string sort2 = Console.ReadLine();
-
-                                if (sort2.ToUpper() == "asc")
-                                {
-                                    Console.WriteLine("stigande efternamn");
-                                }
-                                else if (sort2.ToUpper() == "des")
-                                {
-                                    Console.WriteLine("Fallande efternamn");
-                                }
-                            }
-
-                    
                             break;
                         }
                     case "2":
@@ -65,15 +90,12 @@ namespace SkolaLabb
                             //Användaren ska först få se en lista med alla klasser som finns,
                             //sen får användaren välja en av klasserna och då skrivs alla elever i den klassen ut
 
-                            foreach (var k in klasslista)
-                            {
-                                for (int j = 0; j < klass.Count; j++)
-                                {
-                                    Console.WriteLine($"{j + 1}. {klass[j]}");
-                                }
-                            }
+                            List<Klass> klasser = null;
+                            var db = new SkolaDbContext();
+
                             
-                                break;
+
+                            break;
                         }
                     case "3":
                         {
