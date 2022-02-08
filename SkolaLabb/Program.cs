@@ -53,43 +53,51 @@ namespace SkolaLabb
                             {
                                 if (svar == "förnamn")
                                 {
+                                    Console.Clear();
                                     Console.WriteLine("Här sorterar vi på förnamn");
                                     var a = from s in context.Elev orderby s.Fnamn ascending select s;
                                     foreach (var item in a)
                                     {
                                         Console.WriteLine(item.Fnamn);
                                     }
+                                    Console.WriteLine("");
                                 }
                                 else if (svar == "efternamn")
                                 {
+                                    Console.Clear();
                                     Console.WriteLine("Här sorterar vi på efternamn");
                                     var b = from s in context.Elev orderby s.Lnamn ascending select s;
                                     foreach (var item in b)
                                     {
                                         Console.WriteLine(item.Lnamn);
                                     }
+                                    Console.WriteLine("");
                                 }
                             }
                             else
                             {
                                 if (svar == "förnamn")
                                 {
+                                    Console.Clear();
                                     Console.WriteLine("Här sorterar vi på förnamn");
                                     var c = from s in context.Elev orderby s.Fnamn descending select s;
                                     foreach (var item in c)
                                     {
                                         Console.WriteLine(item.Fnamn);
                                     }
+                                    Console.WriteLine("");
                                     
                                 }
                                 else if (svar == "efternamn")
                                 {
+                                    Console.Clear();
                                     Console.WriteLine("Här sorterar vi på efternamn");
                                     var d = from s in context.Elev orderby s.Lnamn descending select s;
                                     foreach (var item in d)
                                     {
                                         Console.WriteLine(item.Lnamn);
                                     }
+                                    Console.WriteLine("");
                                 }
                             }
 
@@ -116,9 +124,153 @@ namespace SkolaLabb
                             //sen får användaren välja en av klasserna och då skrivs alla elever i den klassen ut
 
                             List<Klass> klasser = null;
-                            var db = new SkolaDbContext();
 
-                            
+                            var e = from k in context.Klass orderby k.KlassId ascending select k;
+                            foreach (var item in e)
+                            {
+                                Console.WriteLine(item.KlassNamn);
+                            }
+                            Console.WriteLine("");
+
+                            Console.WriteLine("Välj en klass");
+
+                            string selection = Console.ReadLine();
+                            Console.Clear();
+
+                            switch (selection)
+                            {
+                                case "AB":
+                                    {
+                                        var query =
+                                            from c in context.Elev
+                                            where c.KlassId == 1
+                                            select c;
+                                            
+                                        foreach (var item in query)
+                                        {
+                                            Console.WriteLine(" {0}" + " {1}", item.Fnamn, item.Lnamn);
+                                        }
+                                       
+                                        Console.WriteLine("");
+                                        break;
+                                    }
+                                case "CD":
+                                    {
+                                        var query =
+                                            from c in context.Elev
+                                            where c.KlassId == 2
+                                            select c;
+
+
+                                        foreach (var item in query)
+                                        {
+                                            Console.WriteLine(" {0}" + " {1}", item.Fnamn, item.Lnamn);
+                                        }
+
+                                        Console.WriteLine("");
+                                        break;
+                                    }
+                                case "SQ":
+                                    {
+                                        var query =
+                                            from c in context.Elev
+                                            where c.KlassId == 3
+                                            select c;
+
+
+                                        foreach (var item in query)
+                                        {
+                                            Console.WriteLine(" {0}" + " {1}", item.Fnamn, item.Lnamn);
+                                        }
+
+                                        Console.WriteLine("");
+                                        break;
+                                    }
+                                case "PR":
+                                    {
+                                        var query =
+                                            from c in context.Elev
+                                            where c.KlassId == 4
+                                            select c;
+
+
+                                        foreach (var item in query)
+                                        {
+                                            Console.WriteLine(" {0}" + " {1}", item.Fnamn, item.Lnamn);
+                                        }
+
+                                        Console.WriteLine("");
+                                        break;
+                                    }
+                                case "YT":
+                                    {
+                                        var query =
+                                            from c in context.Elev
+                                            where c.KlassId == 5
+                                            select c;
+
+
+                                        foreach (var item in query)
+                                        {
+                                            Console.WriteLine(" {0}" + " {1}", item.Fnamn, item.Lnamn);
+                                        }
+
+                                        Console.WriteLine("");
+                                        break;
+                                    }
+                                case "KJ":
+                                    {
+                                        var query =
+                                            from c in context.Elev
+                                            where c.KlassId == 6
+                                            select c;
+
+
+                                        foreach (var item in query)
+                                        {
+                                            Console.WriteLine(" {0}" + " {1}", item.Fnamn, item.Lnamn);
+                                        }
+
+                                        Console.WriteLine("");
+                                        break;
+                                    }
+                                case "PA":
+                                    {
+                                        var query =
+                                            from c in context.Elev
+                                            where c.KlassId == 7
+                                            select c;
+
+
+                                        foreach (var item in query)
+                                        {
+                                            Console.WriteLine(" {0}" + " {1}", item.Fnamn, item.Lnamn);
+                                        }
+
+                                        Console.WriteLine("");
+                                        break;
+                                    }
+                                case "RE":
+                                    {
+                                        var query =
+                                            from c in context.Elev
+                                            where c.KlassId == 8
+                                            select c;
+
+
+                                        foreach (var item in query)
+                                        {
+                                            Console.WriteLine(" {0}" + " {1}", item.Fnamn, item.Lnamn);
+                                        }
+
+                                        Console.WriteLine("");
+                                        break;
+                                    }
+                            }
+
+
+
+
 
                             break;
                         }
