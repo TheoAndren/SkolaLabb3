@@ -4,16 +4,23 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SkolaLabb.Models;
 
+
 namespace SkolaLabb
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            using SkolaDbContext context = new SkolaDbContext();
+            //var test = from e in context.Elev select e;
+            //foreach (Elev item in test)
+            //{
+            //    Console.WriteLine("Fnamn" + item.Fnamn);
+            //}
             bool logout = false;
             while (logout == false)
             {
-                Console.WriteLine("Mata in");
+                
                 Console.WriteLine("1: Hämta ut alla elever");
                 Console.WriteLine("2: Hämta ut alla elever i en viss klass");
                 Console.WriteLine("3: Lägga till ny personal");
@@ -35,24 +42,32 @@ namespace SkolaLabb
                             Console.WriteLine("Vill du ha stigande eller fallande ordning");
                             Console.WriteLine("Mata in stigande / fallande");
                             string ordning = Console.ReadLine();
-                            if (ordning != "stigande" && ordning != "fallanse")
+                            if (ordning != "stigande" && ordning != "fallande")
                             {
                                 throw new Exception("Du mata in nått könstigt");
                             }
 
-                            List<Elev> elever = null;
-                            var db = new SkolaDbContext();
+                            List<Elev> Elever = null;
+                            
                             if (ordning == "stigande")
                             {
                                 if (svar == "förnamn")
                                 {
                                     Console.WriteLine("Här sorterar vi på förnamn");
-                                    var student = from s in db.Elever orderby s.Fnamn ascending select s;
+                                    var a = from s in context.Elev orderby s.Fnamn ascending select s;
+                                    foreach (var item in a)
+                                    {
+                                        Console.WriteLine(item.Fnamn);
+                                    }
                                 }
                                 else if (svar == "efternamn")
                                 {
                                     Console.WriteLine("Här sorterar vi på efternamn");
-                                    var b = from s in db.Elever orderby s.Lnamn ascending select s;
+                                    var b = from s in context.Elev orderby s.Lnamn ascending select s;
+                                    foreach (var item in b)
+                                    {
+                                        Console.WriteLine(item.Lnamn);
+                                    }
                                 }
                             }
                             else
@@ -60,20 +75,29 @@ namespace SkolaLabb
                                 if (svar == "förnamn")
                                 {
                                     Console.WriteLine("Här sorterar vi på förnamn");
-                                    var c = from s in db.Elever orderby s.Fnamn descending select s;
+                                    var c = from s in context.Elev orderby s.Fnamn descending select s;
+                                    foreach (var item in c)
+                                    {
+                                        Console.WriteLine(item.Fnamn);
+                                    }
+                                    
                                 }
                                 else if (svar == "efternamn")
                                 {
                                     Console.WriteLine("Här sorterar vi på efternamn");
-                                    var d = from s in db.Elever orderby s.Lnamn descending select s;
+                                    var d = from s in context.Elev orderby s.Lnamn descending select s;
+                                    foreach (var item in d)
+                                    {
+                                        Console.WriteLine(item.Lnamn);
+                                    }
                                 }
                             }
 
 
-                            elever.ForEach(delegate (Elev elev)
-                            {
-                                Console.WriteLine(elev.Fnamn + " " + elev.Lnamn);
-                            });
+                            //Elever.ForEach(delegate (Elev elev)
+                            //{
+                            //    Console.WriteLine(elev.Fnamn + " " + elev.Lnamn);
+                            //});
 
 
 
